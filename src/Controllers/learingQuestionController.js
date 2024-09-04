@@ -1,7 +1,6 @@
-const { ObjectId } = require("mongodb");
 const connectToMongoDB = require("../config/db");
-//  gate all question
 
+// Get all questions
 const getAllLearningQuestions = async () => {
   const client = await connectToMongoDB();
   const learningQuestionsCollection = client
@@ -11,16 +10,13 @@ const getAllLearningQuestions = async () => {
   return allQuestions;
 };
 
-// Function to create a new learning question
+// Create a new question
 const createLearningQuestion = async (questionData) => {
   const client = await connectToMongoDB();
   const learningQuestionsCollection = client
     .db("LangMaster")
     .collection("questions");
-
-  // Insert the new question into the database
   const result = await learningQuestionsCollection.insertOne(questionData);
-  // Return the newly created question
   return result;
 };
 

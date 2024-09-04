@@ -25,11 +25,22 @@ const getUser = async () => {
 // single user get
 
 const getSingleUser = async (query) => {
-  const client = await connectToMongoDB();
-  const userCollection = client.db("LangMaster").collection("users");
-  const userData = await userCollection.findOne(query);
-  await client.close();
-  return userData;
+  let client;
+
+  try {
+    client = await connectToMongoDB();
+    const userCollection = client.db("LangMaster").collection("users");
+    const userData = await userCollection.findOne(query);
+
+    return userData;
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    throw error; // throwing the error for further handling
+  } finally {
+    if (client) {
+      await client.close();
+    }
+  }
 };
 // update user profile data
 const updateUser = async (userEmail, updatedData) => {

@@ -32,19 +32,21 @@ router.get("/singleUser", async (req, res) => {
   const email = req.query.email;
 
   if (!email) {
-    return res.status(400).send({ error: "Email parameter is missing" });
+    return res.status(400).json({ error: "Email parameter is missing" });
   }
 
-  const query = { email: email };
+  const query = { email };
 
   try {
     const result = await userController.getSingleUser(query);
     if (!result) {
-      return res.status(404).send({ error: "User not found" });
+      return res.status(404).json({ error: "User not found" });
     }
-    res.send(result);
+    res.status(200).json(result);
   } catch (error) {
-    res.status(500).send({ error: "Internal Server Error", error });
+    res
+      .status(500)
+      .json({ error: "Internal Server Error", details: error.message });
   }
 });
 

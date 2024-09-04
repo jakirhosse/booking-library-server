@@ -6,10 +6,9 @@ const learningQuestionsController = require("../Controllers/learingQuestionContr
 router.post("/questions", async (req, res) => {
   try {
     const questionData = req.body;
-    // find data to controller
     await learningQuestionsController.createLearningQuestion(questionData);
     res.status(200).json({
-      message: "Question Create Successfull",
+      message: "Question Create Successful",
     });
   } catch (error) {
     console.error("Error creating learning question:", error);
@@ -17,15 +16,15 @@ router.post("/questions", async (req, res) => {
   }
 });
 
-// get all data form learningQuestionsController
+// Get all questions
 router.get("/questions", async (req, res) => {
   try {
     const allQuestions =
       await learningQuestionsController.getAllLearningQuestions();
-    res.send(allQuestions);
+    res.status(200).json(allQuestions);
   } catch (error) {
     console.error("Error fetching learning questions:", error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
