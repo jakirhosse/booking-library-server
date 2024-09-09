@@ -11,6 +11,7 @@ const usersRouters = require("./src/routers/usersRoutes");
 const feedbackRoutes = require("./src/routers/feedbackRoutes");
 const learningQuestionRoutes = require("./src/routers/learningQuestionRoutes");
 const quizsRoutes = require("./src/routers/quizsRoutes");
+const paymentRoutes = require("./src/routers/paymentRoutes");
 
 // Middleware setup
 app.use(cors());
@@ -28,6 +29,7 @@ app.use("/quizs", quizsRoutes);
 app.use("/json-web-token", JwtRoutes);
 app.use("/users", usersRouters);
 app.use("/learning-questions", learningQuestionRoutes);
+app.use("/payment", paymentRoutes);
 
 // Default error handling
 app.use((err, req, res, next) => {
